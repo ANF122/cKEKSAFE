@@ -57,7 +57,7 @@ def get_results(api_key, resource_id, file_path, index, total_files, summary):
     result_window = tk.Toplevel(app)
     result_window.title("Résultats d'analyse")
     result_window.geometry("600x400")
-    result_window.iconbitmap("C:/Users/pirat/Desktop/Checksafe/logo.ico")  # Ajout de l'icône
+    result_window.iconbitmap("logo.ico")  # Ajout de l'icône
 
     result_window.configure(bg="black")
     add_logo(result_window)  # Ajouter le logo dans la fenêtre des résultats
@@ -117,7 +117,7 @@ def set_theme(theme):
         widget.configure(bg=bg_color, fg=text_color)
 
 def add_logo(parent):
-    logo = Image.open(r"C:\Users\pirat\Desktop\Checksafe\logo.ico")  # Remplacez par le chemin correct
+    logo = Image.open(r"logo.ico")  # Remplacez par le chemin correct
     logo = logo.resize((100, 50), Image.LANCZOS)  # Utilisez LANCZOS
     logo_image = ImageTk.PhotoImage(logo)
     logo_label = tk.Label(parent, image=logo_image, bg=parent.cget("bg"))
@@ -127,7 +127,7 @@ def add_logo(parent):
 app = tk.Tk()
 app.title("Vérification de fichiers")
 app.geometry("600x400")
-app.iconbitmap("C:/Users/pirat/Desktop/Checksafe/logo.ico")  # Ajout de l'icône
+app.iconbitmap("logo.ico")  # Ajout de l'icône
 
 add_logo(app)  # Ajout du logo dans la fenêtre principale
 
