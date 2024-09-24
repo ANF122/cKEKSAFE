@@ -30,22 +30,5 @@
 4. Cliquez sur "Vérifier" pour lancer l'analyse.
 
 
-
-## Installation
-
-1. Clonez le dépôt ou téléchargez le projet.
-2. Installez les dépendances nécessaires avec :
-   ```bash
-   pip install requests Pillow
-Placez votre fichier logo.ico dans le même dossier que Cheksafe.py.
-Utilisation
-Exécutez l'application avec :
-bash
-Copier le code
-python Cheksafe.py
-Entrez votre clé API VirusTotal.
-Sélectionnez les fichiers à analyser.
-Cliquez sur "Vérifier" pour lancer l'analyse.
-
 ## Contribution
 Les contributions sont les bienvenues ! N'hésitez pas à soumettre des problèmes ou des demandes de fonctionnalités.
