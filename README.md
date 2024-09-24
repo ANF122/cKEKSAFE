@@ -22,7 +22,7 @@
 1. Clonez le dépôt ou téléchargez le projet.
 2. Installez les dépendances nécessaires avec :
    ```bash
-   pip install requests Pillow
+   pip install requests Pillow tkinter 
 ## Utilisation
 1. python Cheksafe.py ou  exe disponible sur la page ! 
 2. Entrez votre clé API VirusTotal.
