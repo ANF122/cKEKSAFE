@@ -24,7 +24,7 @@
    ```bash
    pip install requests Pillow
 ## Utilisation
-1. python Cheksafe.py ou en exe disponible sur la page 
+1. python Cheksafe.py ou  exe disponible sur la page ! 
 2. Entrez votre clé API VirusTotal.
 3. Sélectionnez les fichiers à analyser.
 4. Cliquez sur "Vérifier" pour lancer l'analyse.
