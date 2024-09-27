@@ -3,7 +3,9 @@ from tkinter import ttk, messagebox, filedialog
 from PIL import Image, ImageTk
 import requests
 import threading
+import os
 
+# Fonction pour sélectionner les fichiers
 def select_files():
     new_file_paths = filedialog.askopenfilenames()
     current_files = file_entry.get("1.0", tk.END).strip().split('\n')
@@ -12,11 +14,13 @@ def select_files():
     file_entry.delete("1.0", tk.END)
     file_entry.insert("1.0", '\n'.join(all_files))
 
+# Récupérer les résultats d'analyse
 def get_analysis_results(api_key, resource):
     response = requests.get('https://www.virustotal.com/vtapi/v2/file/report',
                             params={'apikey': api_key, 'resource': resource})
     return response.json()
 
+# Créer un cadre pour les résultats
 def create_result_frame(parent, engine, detected, version):
     frame = ttk.Frame(parent, padding="5", style="Results.TFrame")
     frame.pack(fill='x', padx=5, pady=2)
@@ -31,6 +35,7 @@ def create_result_frame(parent, engine, detected, version):
     version_label = ttk.Label(frame, text=f"Version: {version}", font=('Arial', 10))
     version_label.pack(side='right', padx=5)
 
+# Vérifier un fichier
 def check_file(api_key, file_path, index, total_files, summary):
     try:
         with open(file_path.strip(), 'rb') as file:
@@ -51,16 +56,15 @@ def check_file(api_key, file_path, index, total_files, summary):
         progress['value'] = ((index + 1) / total_files) * 100
         app.update()
 
+# Obtenir les résultats d'analyse
 def get_results(api_key, resource_id, file_path, index, total_files, summary):
     results = get_analysis_results(api_key, resource_id)
 
     result_window = tk.Toplevel(app)
     result_window.title("Résultats d'analyse")
     result_window.geometry("600x400")
-    result_window.iconbitmap("logo.ico")  # Ajout de l'icône
-
+    
     result_window.configure(bg="black")
-    add_logo(result_window)  # Ajouter le logo dans la fenêtre des résultats
 
     tk.Label(result_window, text=f"Résultats pour {file_path} :", font=('Arial', 14, 'bold'), bg="black", fg="white").pack(pady=5)
     
@@ -85,6 +89,7 @@ def get_results(api_key, resource_id, file_path, index, total_files, summary):
     else:
         messagebox.showerror("Erreur", f"Résultat introuvable pour {file_path}.")
 
+# Vérifier les fichiers
 def check_files():
     api_key = api_key_entry.get()
     file_paths = file_entry.get("1.0", tk.END).strip().split('\n')
@@ -97,6 +102,7 @@ def check_files():
     summary = {'malicious': False}
     threading.Thread(target=check_file, args=(api_key, first_file_path, 0, total_files, summary)).start()
 
+# Changer le thème
 def set_theme(theme):
     color_map = {
         "Naruto": "orange",
@@ -114,27 +120,23 @@ def set_theme(theme):
     text_color = text_color_map.get(theme, "black")
     app.configure(bg=bg_color)
     for widget in app.winfo_children():
-        widget.configure(bg=bg_color, fg=text_color)
+        if isinstance(widget, ttk.Widget):
+            widget.configure(style="TLabel")
+        else:
+            widget.configure(bg=bg_color, fg=text_color)
 
-def add_logo(parent):
-    logo = Image.open(r"logo.ico")  # Remplacez par le chemin correct
-    logo = logo.resize((100, 50), Image.LANCZOS)  # Utilisez LANCZOS
-    logo_image = ImageTk.PhotoImage(logo)
-    logo_label = tk.Label(parent, image=logo_image, bg=parent.cget("bg"))
-    logo_label.image = logo_image  # Gardez une référence à l'image
-    logo_label.pack(pady=10)
-
+# Interface principale
 app = tk.Tk()
-app.title("Vérification de fichiers")
+app.title("cKEKSAFE")
 app.geometry("600x400")
-app.iconbitmap("logo.ico")  # Ajout de l'icône
 
-add_logo(app)  # Ajout du logo dans la fenêtre principale
+
 
 style = ttk.Style()
 style.configure("Results.TFrame", background="lightgray")
 style.configure("TLabel", background="white", font=('Arial', 10))
 
+# Champs et boutons
 tk.Label(app, text="Entrez votre clé API :").pack(pady=10)
 api_key_entry = tk.Entry(app, width=50, show="*")
 api_key_entry.pack(pady=5)
